@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHICHEK - Sağlığın Doğal Lezzeti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<style>
+    :root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --primary-color: #79a700;
+    --text-light: #c0c0c0;
+    --card-bg: #111111;
+    --border-color: #333333;
+    --select-bg: #1a1a1a;
+    --select-hover: #2a2a2a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#result {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Sora', sans-serif !important;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 75px;
+    background: rgba(0, 0, 0, 0);
+    padding: 0 5%;
+    z-index: 999;
+    backdrop-filter: blur(5px);
+}
+
+.navbar {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo .logo-img {
+    height: 50px; 
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+    font-size: 1rem;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    left: 0;
+    bottom: -2px;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-color);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* About Section */
+.about-section {
+    padding: 250px 10%;
+    background: url('herbaltea.jpeg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); 
+    z-index: 0;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.about-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-title h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.about-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+.about-text {
+    margin-bottom: 2rem;
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+.about-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.5rem;
+    background: rgba(121, 167, 0, 0.1); 
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(121, 167, 0, 0.3);
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    background: rgba(121, 167, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-item i {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.about-image {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.image-container {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(145deg, var(--primary-color), #ffffff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--primary-color);
+    overflow: hidden;
+}
+
+.image-container::before {
+    content: '';
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: rotate 10s linear infinite;
+}
+
+.about-icon {
+    font-size: 6rem;
+    color: #000000;
+    z-index: 1;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-5px);
+    background: var(--primary-color);
+    color: #ffffff;
+}
+
+.social-icons svg {
+    width: 20px;
+    height: 20px;
+    fill: #ffffff;
+}
+
+main {
+    padding-top: 0; 
+    min-height: calc(100vh - 5rem - 4rem);
+    width: 100%;
+}
+
+/* Faydalar */
+.skills {
+    padding: 100px 5%;
+    background-color: var(--bg-color);
+}
+
+.skills-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.skills-title h3, .section-title h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.skill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.skill-content {
+    flex: 1;
+    min-width: 300px;
+    padding: 2.5rem;
+    background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transform: translateX(-100%);
+    transition: all 0.6s ease;
+}
+
+.skill-content:hover {
+    transform: translateY(-15px);
+    border-color: var(--primary-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.skill-content:hover::before {
+    transform: translateX(100%);
+}
+
+.skill-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    color: var(--text-color);
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+.skill-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.skill-content:hover h3::after {
+    width: 100px;
+}
+
+.skill-content h4 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Demleme Rehberi */
+.crypto-section {
+    padding: 100px 5%;
+    background-color: var(--card-bg);
+    margin-bottom: 0;
+}
+
+
+/* Contact Section */
+.contact-section {
+    padding: 5rem 10%;
+    background-color: var(--card-bg);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.contact-info h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.contact-info p {
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: var(--text-color);
+    font-family: inherit;
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-buttons button {
+    padding: 1rem 2rem;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-buttons button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Styles */
+.footer {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 60px 0 20px;
+    margin-top: 50px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-col {
+    width: 23%;
+    margin-bottom: 30px;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), rgba(255, 255, 255, 0.1));
+}
+
+.footer-col p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: var(--primary-color);
+    padding-left: 5px;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: center;
+    color: var(--text-light);
+}
+
+.contact-info li i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.footer-social-icons {
+    display: flex;
+    margin-top: 20px;
+}
+
+.footer-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    margin-right: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+    background: linear-gradient(90deg, var(--primary-color), rgba(255, 255, 255, 0.3));
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* Çayımızın İçeriği */
+
+.market-overview {
+    padding: 100px 5%;
+    background-color: var(--bg-color);
+}
+
+.section-title-product {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.ingredient-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.ingredient-card {
+    flex: 0 1 calc(33.333% - 1.5rem);
+    min-width: 200px;
+    padding: 2rem;
+    background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.ingredient-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.ingredient-card.wide-card {
+    flex: 0 1 calc(66.666% - 1.5rem);
+}
+
+.service-icon-product {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.card-title-product {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.disclaimer-text {
+    padding: 1rem;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--primary-color);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--text-light) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .ingredient-card {
+        flex: 0 1 calc(50% - 1.5rem);
+    }
+    
+    .ingredient-card.wide-card {
+        flex: 0 1 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hamburger {
+        display: block;
+    }
+    
+    .skill-content {
+        min-width: 100%;
+    }
+    
+    .footer-col {
+        width: 48%;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-col {
+        width: 100%;
+    }
+    
+    .ingredient-card {
+        flex: 0 1 100%;
+    }
+}
+</style>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="#home">
+                    <img class="logo-img" src="" alt="" style="height: 50px;">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Anasayfa</a>
+                <a href="#product-info">Çayımız</a>
+                <a href="#benefits">Faydaları</a>
+                <a href="#brewing-guide">Demleme</a>
+                <a href="#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="about-title">
+                    <h2>Doğanın En Saf Lezzeti: CHICHEK</h2>
+                </div>
+                <div class="about-text">
+                    <p>CHICHEK Herbal Tea, dağın eteklerinde yetişen doğal ve organik bitkilerden hazırlanmıştır. Geleneksel lezzetleri modern yaşamın ihtiyaç duyduğu canlılıkla birleştiriyoruz.</p>
+                    <p>Bu çay ruh hâlinin iyileştirilmesine, kalp ve bağışıklık sisteminin güçlendirilmesine yardımcı olur. Sağlığın Doğal Lezzeti.</p>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/" target="_blank" title="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
+                            <path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/" target="_blank" title="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 448 512" fill="currentColor">
+                            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9 114.9-51.3 114.9-114.9S287.7 141 224.1 141zm0 190.5c-41.8 0-75.6-33.8-75.6-75.6s33.8-75.6 75.6-75.6 75.6 33.8 75.6 75.6-33.8 75.6-75.6 75.6zm146.4-194.3c0 14.9-12 26.9-26.9 26.9s-26.9-12-26.9-26.9 12-26.9 26.9-26.9 26.9 12 26.9 26.9zm76.1 27.2c-1.7-35.3-9.9-66.7-36.2-93C387.6 25.9 356.2 17.7 320.9 16 285.2 14.3 162.8 14.3 127.1 16 91.8 17.7 60.4 25.9 34.1 52.2 7.8 78.5-.4 109.9-2.1 145.2c-1.7 35.7-1.7 145.2 0 180.9 1.7 35.3 9.9 66.7 36.2 93s57.7 34.5 93 36.2c35.7 1.7 145.2 1.7 180.9 0 35.3-1.7 66.7-9.9 93-36.2s34.5-57.7 36.2-93c1.7-35.7 1.7-145.1 0-180.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.6 102.7-9 132.1z"></path>
+                        </svg>
+                    </a>
+                     <a href="#" target="_blank" title="WhatsApp">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 448 512" fill="currentColor">
+                            <path d="M380.9 97.1C339.4 55.6 283.4 33.7 224 33.7c-106.7 0-193.3 86.6-193.3 193.3 0 35.8 9.7 70.3 28 100.3l-32.9 120.3 123.9-32.5c29.1 15.9 61.2 24.1 94.3 24.1h.1c106.7 0 193.3-86.6 193.3-193.3 0-59.4-21.9-115.4-63.4-156.9zM224 438.2h-.1c-29 0-57.4-7.9-82.1-22.7l-5.5-3.3-56.7 14.8 15.1-55.5-3.6-5.7c-16.4-25.7-25-55.3-25-85.7 0-88.7 72-160.7 160.7-160.7 46.2 0 89.8 18 122.6 50.8 32.8 32.8 50.8 76.4 50.8 122.6 0 88.7-72 160.7-160.7 160.7zM339.6 288.7c-5.1-2.5-30.1-14.8-34.7-16.5-4.6-1.7-7.9-2.5-11.2 2.5-3.3 5.1-12.8 16.5-15.7 19.8-2.9 3.3-5.9 3.6-11.1 1.2-5.1-2.5-21.5-7.9-40.9-25.2-15.1-13.3-25.2-29.8-28.1-34.9-2.9-5.1-.3-8-2.5-10.2-2.1-2-4.6-5.1-6.9-7.6-2.4-2.5-5.1-4.7-5.1-8.2s2.5-7.9 3.8-10.2c1.2-2.3 2.5-4.6 3.8-6.9 1.2-2.3 1.7-4.1 2.5-7.6s.4-6.4-.3-10.2c-.7-3.8-7.7-18.7-10.6-25.6-2.9-6.9-5.8-5.9-8.7-6-2.9 0-6.4-.4-9.8-.4-3.4 0-8.9 1.2-13.6 6-4.7 4.7-18 17.6-18 43c0 25.4 18.4 49.8 21 53.4s35.3 56.6 85.3 79.2c27.1 12.3 48.1 19.8 64.4 22.8 16.3 3 24.7 2.5 33.7 1.5 9-.9 29.2-11.9 33.3-23.4s4.1-21.7 2.5-24.3c-1.6-2.5-6.3-4-11.4-6.4z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" target="_blank" title="Telegram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.91 3.79L20.3 20.84c-.25 1.21-.98 1.5-2 .94l-5.5-4.07-2.66 2.57c-.3.3-.55.56-1.1.56-.72 0-.6-.27-.84-.95L6.3 13.7l-5.45-1.7c-1.18-.35-1.19-1.16.26-1.75l21.26-8.2c.97-.43 1.9.24 1.53 1.53z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" target="_blank" title="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 512 512" fill="currentColor">
+                            <path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.79l-11 71.69h-57.79V501.69C413.31 482.38 504 379.78 504 256z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+
+<section id="product-info" class="market-overview">
+    <div class="container py-4">
+        <h2 class="text-center mb-5 section-title-product"><strong>Çayımızın İçeriği</strong></h2>
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <p class="lead" style="color: var(--text-light);">Bu bitki çayı, tıbbi bitkilerin siyah çay ile harmanlanmış bir karışımıdır. Dağın eteklerinde yetişen doğal ve organik bitkilerden hazırlanmıştır, günlük tükettiğiniz çaya alternatif olarak sunulmuştur.</p>
+            </div>
+        </div>
+
+        <div class="ingredient-cards">
+            <div class="ingredient-card">
+                <i class="fas fa-leaf service-icon-product"></i>
+                <h4 class="card-title-product">Biberiye (Rosemary)</h4>
+            </div>
+            <div class="ingredient-card">
+                <i class="fas fa-lemon service-icon-product"></i>
+                <h4 class="card-title-product">Melisa (Lemon Balm)</h4>
+            </div>
+            <div class="ingredient-card">
+                <i class="fas fa-sun service-icon-product"></i>
+                <h4 class="card-title-product">Papatya (Chamomile)</h4>
+            </div>
+            <div class="ingredient-card">
+                <i class="fas fa-pepper-hot service-icon-product"></i>
+                <h4 class="card-title-product">Kakule (Cardamom)</h4>
+            </div>
+            <div class="ingredient-card">
+                <i class="fas fa-tree service-icon-product"></i>
+                <h4 class="card-title-product">Tarçın (Cinnamon)</h4>
+            </div>
+            <div class="ingredient-card wide-card">
+                <i class="fas fa-mortar-pestle service-icon-product"></i>
+                <h4 class="card-title-product">Diğer Aromatik Otlar</h4>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <p class="mt-4 disclaimer-text" style="font-weight: 600;">
+                <i class="fas fa-exclamation-triangle me-2" style="color: #ff0707;"></i> 
+                Emzirme veya hamilelik döneminde ya da herhangi bir kronik rahatsızlığınız varsa kullanmadan önce doktorunuza danışınız.
+            </p>
+        </div>
+    </div>
+</section>
+
+        <section id="benefits" class="skills">
+            <div class="skills-container">
+                <div class="skills-title">
+                    <h3><strong>CHICHEK'in Faydaları</strong></h3>
+                </div>
+                <div class="skills-columns">
+                    <div class="col-md-12">
+                        <div class="skill-row">
+                            <div class="skill-content">
+                                <i class="fas fa-seedling service-icon"></i>
+                                <h3>Ruh Hali ve Bağışıklık Sistemi</h3>
+                                <h4>Ruh hâlinin iyileştirilmesine ve kalp ile bağışıklık sisteminin güçlendirilmesine yardımcı olur. Aynı zamanda bol miktarda antioksidan içerir.</h4>
+                            </div>
+                            <div class="skill-content">
+                                <i class="fas fa-hand-holding-heart service-icon"></i>
+                                <h3>Huzur ve Canlılık</h3>
+                                <h4>Stresi ve kaygıyı azaltmak için idealdir. İç huzur, canlılık ve yorgunluğun giderilmesini sağlar.</h4>
+                            </div>
+                        </div>
+                        <div class="skill-row mt-4">
+                            <div class="skill-content">
+                                <i class="fas fa-fire-alt service-icon"></i>
+                                <h3>Metabolizma ve Yağ Yakımı</h3>
+                                <h4>Yağ yakımının ve metabolizmanın artırılmasına yardımcı olma özellikleriyle bilinir.</h4>
+                            </div>
+                            <div class="skill-content">
+                                <i class="fas fa-tea service-icon"></i>
+                                <h3>Yeniden Demleme Özelliği</h3>
+                                <h4>Günlük tükettiğiniz çaya alternatiftir ve birkaç kez demlenebilir; ilk demlemeden sonra üzerine tekrar kaynar su ekleyip yeniden demleyebilirsiniz.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="brewing-guide" class="crypto-section">
+            <div class="container">
+                <div class="section-title">
+                    <h3><strong>Demleme Rehberi</strong></h3>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center">
+                        <img src="herbaltea.jpeg" alt="Demleme malzemeleri" class="img-fluid rounded-3" style="max-height: 400px; object-fit: cover; border: 1px solid var(--primary-color);" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-4 rounded" style="background-color: var(--bg-color); border: 1px solid var(--border-color);">
+                            <h4>Kullanım Şekli</h4>
+                            <p class="mb-3" style="color: var(--text-light);">CHICHEK Herbal Tea'yi demlemek çok kolaydır. Talimatları takip edin:</p>
+                            <ul class="list-group list-group-flush mb-4">
+                                <li class="list-group-item" style="background-color: var(--bg-color); color: var(--text-color);">
+                                    <i class="fas fa-spoon me-2" style="color: var(--primary-color);"></i> Ölçü: Her bir bardak için iki kaşık bitki çayını kullanın.
+                                </li>
+                                <li class="list-group-item" style="background-color: var(--bg-color); color: var(--text-color);">
+                                    <i class="fas fa-clock me-2" style="color: var(--primary-color);"></i> Demleme Süresi: 10 ila 20 dakika demleyip tüketiniz.
+                                </li>
+                                <li class="list-group-item" style="background-color: var(--bg-color); color: var(--text-color);">
+                                    <i class="fas fa-redo-alt me-2" style="color: var(--primary-color);"></i> Yeniden Demleme: İlk demlemeden sonra üzerine tekrar kaynar su ekleyip yeniden demleyebilirsiniz.
+                                </li>
+                            </ul>
+                            <p class="text-muted small">Tüketim Süresi: Ürün, üretim tarihinden itibaren iki yıl sonra tüketilebilir.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="contact">
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h2><strong>Bize Ulaşın ve Daha Fazla Bilgi Alın</strong></h2>
+                        <p>CHICHEK Herbal Tea hakkında merak ettikleriniz, toptan alım ve işbirliği fırsatları için bize kolayca ulaşabilirsiniz.</p>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" placeholder="Adınız Soyadınız" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" placeholder="E-Posta Adresiniz" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" placeholder="Mesajınız" required></textarea>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="submit">Mesaj Gönder</button>
+                            </div>
+                        </form>
+                        <div id="contactResult" class="mt-4 p-3 bg-light border rounded" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-row">
+                    <div class="footer-col">
+                        <h4>Hakkımızda</h4>
+                        <p>Dağın eteklerinden gelen doğal ve organik lezzet: CHICHEK. Sağlıklı yaşam yolculuğunuzda yanınızdayız.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Hızlı Erişim</h4>
+                        <ul>
+                            <li><a href="#home">Anasayfa</a></li>
+                            <li><a href="#product-info">Çayımız</a></li>
+                            <li><a href="#benefits">Faydaları</a></li>
+                            <li><a href="#brewing-guide">Demleme</a></li>
+                            <li><a href="#contact">İletişim</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>İletişim</h4>
+                        <ul class="contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i>Türkiye</li>
+                            <li><i class="fas fa-phone"></i> *** </li>
+                            <li><i class="fas fa-envelope"></i> destek@chichek.com.tr</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Bizi Takip Edin</h4>
+                         <div class="footer-social-icons">
+                            <a href="#" target="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" target="https://www.telegram.com/"><i class="fab fa-telegram-plane"></i></a>
+                            <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.linkedin.com/in/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CHICHEK Herbal Tea. Tüm hakları saklıdır.</p>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+        <script>
+            // İletişim Formu Simülasyonu
+            document.getElementById("contactForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const resultElement = document.getElementById("contactResult");
+                resultElement.style.display = "block";
+                resultElement.style.backgroundColor = '#d4edda'; 
+                resultElement.style.color = '#155724'; 
+                resultElement.innerHTML = "Mesajınız başarıyla gönderildi! Size en kısa sürede geri dönüş yapacağız.";
+                document.getElementById("contactForm").reset();
+                setTimeout(() => {
+                    resultElement.style.display = "none";
+                }, 5000);
+            });
+        </script>
+</body>
+
+</html>
