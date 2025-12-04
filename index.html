@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHICHEK - Sağlığın Doğal Lezzeti</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -55,10 +55,12 @@
         position: fixed;
         width: 100%;
         height: 75px;
-        background: rgba(255, 255, 255, 0.9);
+        /* Arka planı tamamen beyaz yaptık */
+        background: rgba(255, 255, 255, 0.95);
         padding: 0 5%;
         z-index: 999;
-        backdrop-filter: blur(5px);
+        /* blur efektini kaldırdık, daha az kaynak tüketir */
+        /* backdrop-filter: blur(5px); */
         transition: height 0.3s ease;
         border-bottom: 1px solid var(--border-color);
     }
@@ -133,7 +135,7 @@
         padding: 250px 10%;
         background: url('herbaltea.jpeg') no-repeat center center;
         background-size: cover;
-        background-attachment: fixed;
+        background-attachment: scroll;
         position: relative;
         overflow: hidden;
     }
@@ -145,7 +147,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(255, 255, 255, 0.197);
+        background: rgba(255, 255, 255, 0.35);
         z-index: 0;
     }
 
@@ -744,8 +746,8 @@
     <header class="header">
         <nav class="navbar">
             <div class="logo">
-                <a href="#home">
-                    <img class="logo-img" src="logo.png" alt="CHICHEK Logo" style="height: 50px;">
+                <a href="#home" title="CHICHEK Anasayfa">
+                    <img class="logo-img" src="logo.png" alt="CHICHEK Herbal Tea Logosu" title="CHICHEK Anasayfa" style="height: 50px;">
                 </a>
             </div>
             <div class="nav-links">
@@ -894,7 +896,7 @@
                 </div>
                 <div class="row align-items-center">
                     <div class="col-md-6 text-center">
-                        <img src="herbaltea.jpeg" alt="Demleme malzemeleri" class="img-fluid rounded-3"
+                        <img src="herbaltea.jpeg" alt="CHICHEK bitki çayı demleme malzemeleri" class="img-fluid rounded-3"
                             style="max-height: 400px; object-fit: cover; border: 1px solid var(--primary-color);" />
                     </div>
                     <div class="col-md-6">
@@ -907,12 +909,12 @@
                                 <li class="list-group-item"
                                     style="background-color: var(--card-bg); color: var(--text-color);">
                                     <i class="fas fa-spoon me-2" style="color: var(--primary-color);"></i> Ölçü: Her bir
-                                    bardak için iki kaşık bitki çayını kullanın.
+                                    bardak için **bir tutam veya iki kaşık** bitki çayını kullanın.
                                 </li>
                                 <li class="list-group-item"
                                     style="background-color: var(--card-bg); color: var(--text-color);">
                                     <i class="fas fa-clock me-2" style="color: var(--primary-color);"></i> Demleme
-                                    Süresi: 10 ila 20 dakika demleyip tüketiniz.
+                                    Süresi: **5 ila 10 dakika** demleyip tüketiniz.
                                 </li>
                                 <li class="list-group-item"
                                     style="background-color: var(--card-bg); color: var(--text-color);">
@@ -978,8 +980,8 @@
                     <div class="footer-col">
                         <h4>Bizi Takip Edin</h4>
                         <div class="footer-social-icons">
-                            <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
@@ -992,7 +994,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
         <script>
-            // Mobil Menü 
+            // Mobil Menü
             const hamburger = document.querySelector(".hamburger");
             const navLinks = document.querySelector(".nav-links");
 
